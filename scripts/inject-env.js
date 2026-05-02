@@ -17,8 +17,8 @@ const vars = {
 
 // Replace placeholder strings with actual values
 content = content
-  .replaceAll('NETLIFY_ENV_SUPABASE_URL',      vars.SUPABASE_URL)
-  .replaceAll('NETLIFY_ENV_SUPABASE_ANON_KEY', vars.SUPABASE_ANON_KEY);
+  .replace('NETLIFY_ENV_SUPABASE_URL',      vars.SUPABASE_URL)
+  .replace('NETLIFY_ENV_SUPABASE_ANON_KEY', vars.SUPABASE_ANON_KEY);
 
 fs.writeFileSync(envFile, content);
 console.log('[inject-env] Environment variables injected into _env.js ✓');
