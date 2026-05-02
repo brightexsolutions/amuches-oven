@@ -5,9 +5,10 @@
 // ============================================================
 
 import { renderCartDrawer, updateCartUI } from './cart.js';
+import { fetchSettingsMap } from './data-access.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  initAnnouncementBar();
+document.addEventListener('DOMContentLoaded', async () => {
+  await initAnnouncementBar();
   initNav();
   initMobileMenu();
   initCartDrawer();
@@ -17,22 +18,51 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── Announcement Bar ─────────────────────────────────────────
-function initAnnouncementBar() {
+async function initAnnouncementBar() {
   const bar   = document.querySelector('.announcement-bar');
   const close = document.querySelector('.announcement-bar-close');
   if (!bar || !close) return;
 
-  if (sessionStorage.getItem('ann-dismissed') === '1') {
-    bar.classList.add('hidden');
-    return;
-  }
+  try {
+    const settings = await fetchSettingsMap();
+    const enabled = String(settings.announcement_enabled || 'false') === 'true';
+    const text = settings.announcement_text?.trim() || '';
+    const linkLabel = settings.announcement_link_label?.trim() || '';
+    const linkUrl = settings.announcement_link_url?.trim() || '';
+    const textEl = bar.querySelector('.announcement-bar-text');
+    const linkEl = bar.querySelector('.announcement-bar-link');
 
-  close.addEventListener('click', () => {
-    bar.classList.add('hidden');
-    sessionStorage.setItem('ann-dismissed', '1');
-    // Reposition mobile nav if open
-    positionMobileNav();
-  });
+    if (!enabled || !text) {
+      bar.classList.add('hidden');
+      return;
+    }
+
+    if (textEl) textEl.textContent = text;
+    if (linkEl) {
+      if (linkLabel && linkUrl) {
+        linkEl.textContent = linkLabel;
+        linkEl.href = linkUrl;
+        linkEl.hidden = false;
+      } else {
+        linkEl.hidden = true;
+      }
+    }
+
+    const contentKey = `${text}|${linkLabel}|${linkUrl}`;
+    const dismissKey = `ann-dismissed:${contentKey}`;
+    if (sessionStorage.getItem(dismissKey) === '1') {
+      bar.classList.add('hidden');
+      return;
+    }
+
+    close.addEventListener('click', () => {
+      bar.classList.add('hidden');
+      sessionStorage.setItem(dismissKey, '1');
+      positionMobileNav();
+    });
+  } catch {
+    bar.classList.remove('hidden');
+  }
 }
 
 // ── Nav Scroll State ─────────────────────────────────────────

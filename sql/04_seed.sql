@@ -18,7 +18,7 @@ VALUES (
   'birthday',
   true,
   true,
-  12000,
+  1200,
   true,
   3,
   1
@@ -34,7 +34,7 @@ VALUES (
   'wedding',
   true,
   true,
-  85000,
+  8500,
   true,
   14,
   2
@@ -50,7 +50,7 @@ VALUES (
   'everyday',
   true,
   true,
-  15000,
+  1500,
   false,
   2,
   3
@@ -66,7 +66,7 @@ VALUES (
   'anniversary',
   true,
   false,
-  18000,
+  1800,
   true,
   5,
   4
@@ -82,7 +82,7 @@ VALUES (
   'corporate',
   true,
   false,
-  35000,
+  3500,
   true,
   7,
   5
@@ -98,7 +98,7 @@ VALUES (
   'birthday',
   true,
   false,
-  13500,
+  1350,
   false,
   3,
   6

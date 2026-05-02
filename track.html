@@ -17,8 +17,9 @@
 
 <div class="site-header">
 <div class="announcement-bar" id="announcement-bar">
-  <i class="fas fa-gift"></i>&nbsp; Free delivery on orders above KSh 5,000 within Nairobi.
-  <a href="./menu.html">Order now →</a>
+  <i class="fas fa-gift"></i>
+  <span class="announcement-bar-text">Free delivery on wedding cakes and orders above KSh 5,000 within Nairobi.</span>
+  <a href="./order.html" class="announcement-bar-link">Order now</a>
   <button class="announcement-bar-close" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
 </div>
 
@@ -93,8 +94,16 @@
           <i class="fas fa-search"></i> Track
         </button>
       </div>
+      <div class="track-search-row" style="margin-top:var(--sp-3)">
+        <input
+          type="tel" id="track-phone" class="form-input"
+          placeholder="Phone / WhatsApp number used for the order"
+          aria-label="Phone number used for the order"
+          autocomplete="tel"
+        />
+      </div>
       <p style="margin-top:var(--sp-4);font-size:var(--fz-xs);color:var(--clr-stone-400)">
-        <i class="fas fa-lock" style="color:var(--clr-sage)"></i> Your order details are private and secure
+        <i class="fas fa-lock" style="color:var(--clr-sage)"></i> Use your secure tracking link or enter the same phone number used when placing the order
       </p>
     </div>
 

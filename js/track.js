@@ -2,7 +2,7 @@
 // Amuche's Oven — Track Order Page (track.js)
 // ============================================================
 
-import { fetchOrderByNumber, fetchSettingsMap } from './data-access.js';
+import { fetchPublicOrderTracking, fetchSettingsMap } from './data-access.js';
 import { formatCurrency, formatDate, whatsappLink, toast, setButtonLoading, hidePageLoader } from './utils.js';
 import { updateCartUI } from './cart.js';
 
@@ -25,16 +25,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Check URL param
   const ref = new URLSearchParams(window.location.search).get('ref');
+  const token = new URLSearchParams(window.location.search).get('t');
   if (ref) {
     const input = document.getElementById('track-input');
     if (input) { input.value = ref.toUpperCase(); }
-    trackOrder(ref.toUpperCase());
+    if (token) {
+      trackOrder(ref.toUpperCase(), { token });
+    }
   }
 
   document.getElementById('track-btn')?.addEventListener('click', () => {
     const val = document.getElementById('track-input')?.value.trim().toUpperCase();
+    const phone = document.getElementById('track-phone')?.value.trim();
     if (!val) { toast.warning('Please enter your order reference number.'); return; }
-    trackOrder(val);
+    if (!phone && !token) { toast.warning('Enter the phone number used for the order.'); return; }
+    trackOrder(val, { token, phone });
   });
 
   document.getElementById('track-input')?.addEventListener('keydown', e => {
@@ -49,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-async function trackOrder(orderNum) {
+async function trackOrder(orderNum, { token = '', phone = '' } = {}) {
   const btn    = document.getElementById('track-btn');
   const result = document.getElementById('track-result');
   setButtonLoading(btn, true, 'Searching…');
@@ -57,7 +62,7 @@ async function trackOrder(orderNum) {
   result.innerHTML = '';
 
   try {
-    const order = await fetchOrderByNumber(orderNum).catch(() => null);
+    const order = await fetchPublicOrderTracking(orderNum, { token, phone }).catch(() => null);
 
     if (!order) {
       result.innerHTML = renderNotFound(orderNum);
@@ -154,8 +159,8 @@ function renderNotFound(ref) {
     <div class="track-not-found">
       <i class="fas fa-circle-question"></i>
       <h3>Order Not Found</h3>
-      <p>We couldn't find an order with reference <strong>${ref}</strong>.</p>
-      <p style="margin-top:var(--sp-2)">Double-check the reference from your WhatsApp confirmation, or contact us for help.</p>
+      <p>We couldn't verify an order with reference <strong>${ref}</strong>.</p>
+      <p style="margin-top:var(--sp-2)">Double-check the reference and phone number used for the order, or use the secure tracking link from your confirmation.</p>
       <a id="track-wa-not-found" href="${whatsappLink(businessPhone, `Hello! I'm looking for my order but can't find it. My reference was: ${ref}`)}" class="btn btn--whatsapp" style="margin-top:var(--sp-5)" target="_blank" rel="noopener">
         <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
       </a>

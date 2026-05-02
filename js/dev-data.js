@@ -13,6 +13,10 @@ export const LOCAL_SETTINGS = {
   instagram_url: '#',
   facebook_url: '#',
   tiktok_url: '#',
+  announcement_enabled: 'true',
+  announcement_text: 'Free delivery on wedding cakes and orders above KSh 5,000 within Nairobi.',
+  announcement_link_label: 'Order now',
+  announcement_link_url: './order.html',
 };
 
 const LOCAL_CAKES = [

@@ -26,7 +26,7 @@
     </header>
 
     <main class="admin-content">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6)">
+      <div class="admin-settings-grid">
 
         <!-- Business Info -->
         <div class="admin-section">
@@ -98,6 +98,32 @@
           </div>
         </div>
 
+        <!-- Announcement Bar -->
+        <div class="admin-section">
+          <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-bullhorn" style="color:var(--clr-terracotta)"></i> Announcement Bar</h2></div>
+          <div class="admin-section-body">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+              <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;font-size:var(--fz-sm);font-weight:var(--fw-medium)">
+                <input type="checkbox" id="s-announcement-enabled" />
+                Show announcement bar on public pages
+              </label>
+              <div class="form-group">
+                <label class="form-label">Announcement Text</label>
+                <textarea class="form-textarea" id="s-announcement-text" rows="3" placeholder="Free delivery on wedding cakes and orders above KSh 5,000 within Nairobi."></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Link Label</label>
+                <input class="form-input" id="s-announcement-link-label" placeholder="Order now" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Link URL</label>
+                <input class="form-input" id="s-announcement-link-url" placeholder="./order.html" />
+                <span class="form-hint">Leave the link fields blank if the announcement should be text only.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Admin Account -->
         <div class="admin-section">
           <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-user-shield" style="color:var(--clr-terracotta)"></i> Admin Account</h2></div>
@@ -124,9 +150,9 @@
       </div><!-- /grid -->
 
       <!-- Danger Zone -->
-      <div class="admin-section" style="margin-top:var(--sp-6);border:1px solid rgba(181,58,42,0.2)">
+      <div class="admin-section admin-danger-zone" style="margin-top:var(--sp-6);border:1px solid rgba(181,58,42,0.2)">
         <div class="admin-section-header"><h2 class="admin-section-title" style="color:var(--clr-error)"><i class="fas fa-triangle-exclamation"></i> Danger Zone</h2></div>
-        <div class="admin-section-body" style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap">
+        <div class="admin-section-body admin-danger-body" style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap">
           <div style="flex:1">
             <strong style="font-size:var(--fz-sm)">Clear all cancelled orders</strong>
             <p style="font-size:var(--fz-xs);color:var(--clr-stone-400);margin:4px 0 0">Permanently removes cancelled orders from database. Cannot be undone.</p>

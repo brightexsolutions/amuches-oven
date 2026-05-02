@@ -30,14 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const session = await initAdminLayout('./orders.html');
   if (!session) return;
 
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar-mobile-toggle').style.display = '';
-  }
-
-  document.getElementById('sidebar-mobile-toggle-fab')?.addEventListener('click', () => {
-    document.getElementById('admin-sidebar')?.classList.toggle('open');
-  });
-
   await loadBusinessPhone();
   await loadOrders();
   bindEvents();
@@ -120,21 +112,21 @@ async function loadOrders() {
 
   tbody.innerHTML = data.map((order) => `
     <tr style="cursor:pointer" data-order-id="${order.id}">
-      <td><strong style="color:var(--clr-terracotta)">${order.order_number}</strong></td>
-      <td>
+      <td data-label="Order" data-priority="primary"><strong style="color:var(--clr-terracotta)">${order.order_number}</strong></td>
+      <td data-label="Customer" data-priority="secondary">
         <div style="font-weight:var(--fw-medium)">${order.customer_name}</div>
         <div style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.customer_phone}</div>
       </td>
-      <td style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.is_custom ? '<span class="badge badge--baking">Custom</span>' : ''}</td>
-      <td><strong>${formatCurrency(order.total)}</strong></td>
-      <td>
+      <td data-label="Items" style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.is_custom ? '<span class="badge badge--baking">Custom</span>' : ''}</td>
+      <td data-label="Total"><strong>${formatCurrency(order.total)}</strong></td>
+      <td data-label="Delivery">
         <div style="font-weight:var(--fw-medium)">${formatDate(order.delivery_date, { short: true })}</div>
         <div style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.delivery_time || ''}</div>
       </td>
-      <td>${statusBadge(order.status)}</td>
-      <td>${statusBadge(order.payment_status)}</td>
-      <td><span style="font-size:var(--fz-xs);text-transform:capitalize">${order.order_source}</span></td>
-      <td>
+      <td data-label="Status">${statusBadge(order.status)}</td>
+      <td data-label="Payment">${statusBadge(order.payment_status)}</td>
+      <td data-label="Source"><span style="font-size:var(--fz-xs);text-transform:capitalize">${order.order_source}</span></td>
+      <td data-label="Actions">
         <div class="table-actions">
           <button class="action-btn action-btn--view" data-view-order="${order.id}" title="View"><i class="fas fa-eye"></i></button>
         </div>
@@ -216,7 +208,10 @@ function renderModal(order) {
 
   document.getElementById('modal-save-status').onclick = () => saveStatus(order.id, statusSelect.value);
   document.getElementById('modal-download-receipt').onclick = () => generateReceipt(order);
-  document.getElementById('modal-track-link').onclick = () => window.open(`../track.html?ref=${order.order_number}`, '_blank');
+  const trackUrl = order.tracking_token
+    ? `../track.html?ref=${encodeURIComponent(order.order_number)}&t=${encodeURIComponent(order.tracking_token)}`
+    : `../track.html?ref=${encodeURIComponent(order.order_number)}`;
+  document.getElementById('modal-track-link').onclick = () => window.open(trackUrl, '_blank');
 }
 
 async function saveStatus(orderId, status) {

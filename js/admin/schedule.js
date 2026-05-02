@@ -32,9 +32,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const session = await initAdminLayout('./schedule.html');
   if (!session) return;
 
-  if (window.innerWidth <= 768) document.getElementById('sidebar-mobile-toggle').style.display = '';
-  document.getElementById('sidebar-mobile-toggle-fab')?.addEventListener('click', () => document.getElementById('admin-sidebar')?.classList.toggle('open'));
-
   document.getElementById('prev-month')?.addEventListener('click', async () => {
     currentMonth--;
     if (currentMonth < 0) {
@@ -183,12 +180,12 @@ async function loadUpcoming() {
 
   tbody.innerHTML = data.map(o => `
     <tr>
-      <td><a href="./orders.html?order=${o.order_number}" style="font-weight:var(--fw-semibold);color:var(--clr-terracotta)">${o.order_number || 'No order number'}</a></td>
-      <td>${getCustomerLabel(o)}</td>
-      <td style="font-size:var(--fz-xs);color:var(--clr-stone-500)">${getOrderItemsLabel(o)}</td>
-      <td><strong>${formatDate(o.delivery_date,{short:true})}</strong></td>
-      <td style="font-size:var(--fz-xs)">${o.delivery_time||'—'}</td>
-      <td>${o.is_delivery?'<span class="badge badge--confirmed">Delivery</span>':'<span class="badge badge--baking">Pickup</span>'}</td>
-      <td>${statusBadge(o.status)}</td>
+      <td data-label="Order" data-priority="primary"><a href="./orders.html?order=${o.order_number}" style="font-weight:var(--fw-semibold);color:var(--clr-terracotta)">${o.order_number || 'No order number'}</a></td>
+      <td data-label="Customer" data-priority="secondary">${getCustomerLabel(o)}</td>
+      <td data-label="Cake" data-mobile-hidden="true" style="font-size:var(--fz-xs);color:var(--clr-stone-500)">${getOrderItemsLabel(o)}</td>
+      <td data-label="Delivery"><strong>${formatDate(o.delivery_date,{short:true})}</strong></td>
+      <td data-label="Time">${o.delivery_time||'—'}</td>
+      <td data-label="Type">${o.is_delivery?'<span class="badge badge--confirmed">Delivery</span>':'<span class="badge badge--baking">Pickup</span>'}</td>
+      <td data-label="Status">${statusBadge(o.status)}</td>
     </tr>`).join('');
 }

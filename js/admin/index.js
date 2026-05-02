@@ -18,14 +18,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     month: 'long',
   });
 
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar-mobile-toggle').style.display = '';
-  }
-
-  document.getElementById('sidebar-mobile-toggle-fab')?.addEventListener('click', () => {
-    document.getElementById('admin-sidebar')?.classList.toggle('open');
-  });
-
   await Promise.all([loadStats(), loadRecentOrders(), loadUpcoming(), loadWAOrders()]);
 });
 
@@ -48,11 +40,11 @@ async function loadRecentOrders() {
 
   tbody.innerHTML = data.map((order) => `
     <tr>
-      <td><a href="./orders.html?order=${order.order_number}" style="font-weight:var(--fw-semibold);color:var(--clr-terracotta)">${order.order_number}</a></td>
-      <td>${order.customer_name}</td>
-      <td>${formatCurrency(order.total)}</td>
-      <td>${statusBadge(order.status)}</td>
-      <td style="color:var(--clr-stone-400);font-size:var(--fz-xs)">${timeAgo(order.created_at)}</td>
+      <td data-label="Order" data-priority="primary"><a href="./orders.html?order=${order.order_number}" style="font-weight:var(--fw-semibold);color:var(--clr-terracotta)">${order.order_number}</a></td>
+      <td data-label="Customer" data-priority="secondary">${order.customer_name}</td>
+      <td data-label="Total">${formatCurrency(order.total)}</td>
+      <td data-label="Status">${statusBadge(order.status)}</td>
+      <td data-label="Date" style="color:var(--clr-stone-400);font-size:var(--fz-xs)">${timeAgo(order.created_at)}</td>
     </tr>
   `).join('');
 }
@@ -75,10 +67,10 @@ async function loadUpcoming() {
 
   tbody.innerHTML = data.map((order) => `
     <tr>
-      <td><strong>${order.order_number}</strong></td>
-      <td>${order.customer_name}</td>
-      <td><strong>${formatDate(order.delivery_date, { short: true })}</strong></td>
-      <td>${statusBadge(order.status)}</td>
+      <td data-label="Order" data-priority="primary"><strong>${order.order_number}</strong></td>
+      <td data-label="Customer" data-priority="secondary">${order.customer_name}</td>
+      <td data-label="Date"><strong>${formatDate(order.delivery_date, { short: true })}</strong></td>
+      <td data-label="Status">${statusBadge(order.status)}</td>
     </tr>
   `).join('');
 }
@@ -96,11 +88,11 @@ async function loadWAOrders() {
 
   tbody.innerHTML = data.map((order) => `
     <tr>
-      <td><strong>${order.reference_code}</strong></td>
-      <td>${order.customer_phone}</td>
-      <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.message_preview || '—'}</td>
-      <td style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${timeAgo(order.created_at)}</td>
-      <td>
+      <td data-label="Reference" data-priority="primary"><strong>${order.reference_code}</strong></td>
+      <td data-label="Phone">${order.customer_phone}</td>
+      <td data-label="Preview" style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:var(--fz-xs);color:var(--clr-stone-400)">${order.message_preview || '—'}</td>
+      <td data-label="Date" style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${timeAgo(order.created_at)}</td>
+      <td data-label="Action">
         <a href="https://wa.me/${order.customer_phone.replace(/\D/g, '')}" target="_blank" class="action-btn action-btn--check" title="Reply on WhatsApp"><i class="fab fa-whatsapp"></i></a>
       </td>
     </tr>

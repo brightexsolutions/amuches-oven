@@ -39,7 +39,7 @@
       </div>
 
       <!-- Recent orders + upcoming deliveries -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6)">
+      <div class="dashboard-panels" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6)">
 
         <!-- Recent Orders -->
         <div class="admin-section">
@@ -48,7 +48,7 @@
             <a href="./orders.html" class="btn btn--ghost btn--sm">View All <i class="fas fa-arrow-right"></i></a>
           </div>
           <div class="admin-section-body" style="padding:0">
-            <table id="recent-orders-table">
+            <table id="recent-orders-table" class="admin-responsive-table">
               <thead><tr>
                 <th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th>
               </tr></thead>
@@ -66,7 +66,7 @@
             <a href="./schedule.html" class="btn btn--ghost btn--sm">Schedule <i class="fas fa-arrow-right"></i></a>
           </div>
           <div class="admin-section-body" style="padding:0">
-            <table id="upcoming-table">
+            <table id="upcoming-table" class="admin-responsive-table">
               <thead><tr>
                 <th>Order</th><th>Customer</th><th>Date</th><th>Status</th>
               </tr></thead>
@@ -85,7 +85,7 @@
           <span id="wa-order-count" style="font-size:var(--fz-sm);color:var(--clr-stone-400)"></span>
         </div>
         <div class="admin-section-body" style="padding:0">
-          <table>
+          <table class="admin-responsive-table">
             <thead><tr><th>Reference</th><th>Phone</th><th>Message Preview</th><th>Date</th><th>Action</th></tr></thead>
             <tbody id="wa-orders-body">
               <tr><td colspan="5" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr>

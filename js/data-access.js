@@ -204,6 +204,40 @@ export async function fetchOrderByNumber(orderNumber) {
   return data;
 }
 
+export async function fetchPublicOrderTracking(orderNumber, { token = '', phone = '' } = {}) {
+  if (!orderNumber || (!token && !phone)) return null;
+
+  if (!isSupabaseConfigured) {
+    const db = getLocalDb();
+    const order = (db.orders || []).find(
+      (row) =>
+        row.order_number === orderNumber &&
+        (
+          (token && row.tracking_token === token) ||
+          (phone && String(row.customer_phone || '').replace(/\D/g, '') === String(phone).replace(/\D/g, ''))
+        )
+    );
+
+    if (!order) return null;
+
+    return {
+      ...order,
+      order_items: (db.order_items || []).filter((item) => String(item.order_id) === String(order.id)),
+    };
+  }
+
+  const { data, error } = await supabaseClient
+    .rpc('get_public_order_tracking', { order_ref: orderNumber, token: token || null, phone: phone || null })
+    .single();
+
+  if (error) {
+    if (error.message === 'No rows found') return null;
+    throw error;
+  }
+
+  return data || null;
+}
+
 export async function searchOrders({
   page = 0,
   pageSize = 15,

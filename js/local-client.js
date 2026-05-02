@@ -80,6 +80,10 @@ function applyOrFilter(rows, expr) {
   );
 }
 
+function looselyEqual(a, b) {
+  return a == b;
+}
+
 class LocalQueryBuilder {
   constructor(table) {
     this.table = table;
@@ -130,12 +134,12 @@ class LocalQueryBuilder {
   }
 
   eq(field, value) {
-    this.filters.push((row) => row[field] === value);
+    this.filters.push((row) => looselyEqual(row[field], value));
     return this;
   }
 
   neq(field, value) {
-    this.filters.push((row) => row[field] !== value);
+    this.filters.push((row) => !looselyEqual(row[field], value));
     return this;
   }
 

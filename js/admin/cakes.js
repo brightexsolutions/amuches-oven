@@ -13,14 +13,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const session = await initAdminLayout('./cakes.html');
   if (!session) return;
 
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar-mobile-toggle').style.display = '';
-  }
-
-  document.getElementById('sidebar-mobile-toggle-fab')?.addEventListener('click', () => {
-    document.getElementById('admin-sidebar')?.classList.toggle('open');
-  });
-
   await loadCakes();
   bindEvents();
 });
@@ -104,16 +96,16 @@ function renderTable() {
     const image = cake.cake_images?.find((item) => item.is_primary) || cake.cake_images?.[0];
     return `
       <tr>
-        <td><div style="width:52px;height:52px;border-radius:var(--radius-md);overflow:hidden;background:var(--clr-stone-100)">
+        <td data-label="Image"><div style="width:52px;height:52px;border-radius:var(--radius-md);overflow:hidden;background:var(--clr-stone-100)">
           ${image ? `<img src="${image.public_url}" style="width:100%;height:100%;object-fit:cover" loading="lazy" />` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--clr-stone-300)"><i class="fas fa-image"></i></div>'}
         </div></td>
-        <td><strong>${cake.name}</strong><br/><span style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${cake.slug || ''}</span></td>
-        <td style="text-transform:capitalize">${cake.category}</td>
-        <td>${formatCurrency(cake.base_price)}</td>
-        <td style="text-align:center">${cake.cake_variants?.length || 0}</td>
-        <td style="text-align:center">${cake.is_featured ? '<i class="fas fa-star" style="color:var(--clr-gold)"></i>' : '—'}</td>
-        <td>${cake.is_available ? '<span class="badge badge--confirmed">Active</span>' : '<span class="badge badge--cancelled">Hidden</span>'}</td>
-        <td>
+        <td data-label="Name" data-priority="primary"><strong>${cake.name}</strong><br/><span style="font-size:var(--fz-xs);color:var(--clr-stone-400)">${cake.slug || ''}</span></td>
+        <td data-label="Category" style="text-transform:capitalize">${cake.category}</td>
+        <td data-label="Base Price">${formatCurrency(cake.base_price)}</td>
+        <td data-label="Variants">${cake.cake_variants?.length || 0}</td>
+        <td data-label="Featured">${cake.is_featured ? '<i class="fas fa-star" style="color:var(--clr-gold)"></i>' : '—'}</td>
+        <td data-label="Status">${cake.is_available ? '<span class="badge badge--confirmed">Active</span>' : '<span class="badge badge--cancelled">Hidden</span>'}</td>
+        <td data-label="Actions">
           <div class="table-actions">
             <button class="action-btn action-btn--edit" data-edit-cake="${cake.id}" title="Edit"><i class="fas fa-pen"></i></button>
             <a href="../cake.html?slug=${cake.slug}" target="_blank" class="action-btn action-btn--view" title="Preview"><i class="fas fa-eye"></i></a>

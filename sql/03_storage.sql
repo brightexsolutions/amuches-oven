@@ -30,11 +30,13 @@ ON CONFLICT (id) DO NOTHING;
 -- ============================================================
 
 -- Public can view cake images
+DROP POLICY IF EXISTS "Public can view cake images in storage" ON storage.objects;
 CREATE POLICY "Public can view cake images in storage"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'cake-images');
 
 -- Admin can upload cake images
+DROP POLICY IF EXISTS "Admin can upload cake images" ON storage.objects;
 CREATE POLICY "Admin can upload cake images"
   ON storage.objects FOR INSERT
   WITH CHECK (
@@ -43,6 +45,7 @@ CREATE POLICY "Admin can upload cake images"
   );
 
 -- Admin can delete cake images
+DROP POLICY IF EXISTS "Admin can delete cake images" ON storage.objects;
 CREATE POLICY "Admin can delete cake images"
   ON storage.objects FOR DELETE
   USING (
@@ -51,6 +54,7 @@ CREATE POLICY "Admin can delete cake images"
   );
 
 -- Admin can update cake images
+DROP POLICY IF EXISTS "Admin can update cake images" ON storage.objects;
 CREATE POLICY "Admin can update cake images"
   ON storage.objects FOR UPDATE
   USING (
@@ -59,9 +63,14 @@ CREATE POLICY "Admin can update cake images"
   );
 
 -- Admin can access receipts bucket
+DROP POLICY IF EXISTS "Admin can access receipts" ON storage.objects;
 CREATE POLICY "Admin can access receipts"
   ON storage.objects FOR ALL
   USING (
+    bucket_id = 'receipts'
+    AND auth.role() = 'authenticated'
+  )
+  WITH CHECK (
     bucket_id = 'receipts'
     AND auth.role() = 'authenticated'
   );

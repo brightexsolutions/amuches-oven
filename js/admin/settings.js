@@ -18,15 +18,16 @@ const FIELDS = [
   { key:'instagram_url',    id:'s-instagram'    },
   { key:'facebook_url',     id:'s-facebook'     },
   { key:'tiktok_url',       id:'s-tiktok'       },
+  { key:'announcement_enabled', id:'s-announcement-enabled', type:'checkbox' },
+  { key:'announcement_text', id:'s-announcement-text' },
+  { key:'announcement_link_label', id:'s-announcement-link-label' },
+  { key:'announcement_link_url', id:'s-announcement-link-url' },
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
   hidePageLoader();
   const session = await initAdminLayout('./settings.html');
   if (!session) return;
-
-  if (window.innerWidth <= 768) document.getElementById('sidebar-mobile-toggle').style.display = '';
-  document.getElementById('sidebar-mobile-toggle-fab')?.addEventListener('click', () => document.getElementById('admin-sidebar')?.classList.toggle('open'));
 
   // Show current email
   const emailEl = document.getElementById('current-admin-email');
@@ -43,7 +44,12 @@ async function loadSettings() {
   const map = await fetchSettingsMap();
   FIELDS.forEach(f => {
     const el = document.getElementById(f.id);
-    if (el) el.value = map[f.key] || '';
+    if (!el) return;
+    if (f.type === 'checkbox') {
+      el.checked = String(map[f.key] || 'false') === 'true';
+      return;
+    }
+    el.value = map[f.key] || '';
   });
 }
 
@@ -54,7 +60,9 @@ async function saveSettings() {
   try {
     for (const f of FIELDS) {
       const el  = document.getElementById(f.id);
-      const val = el?.value.trim() || '';
+      const val = f.type === 'checkbox'
+        ? String(Boolean(el?.checked))
+        : (el?.value.trim() || '');
       const { error } = await supabaseClient
         .from('settings')
         .upsert({ key: f.key, value: val, updated_at: new Date().toISOString() }, { onConflict: 'key' });

@@ -395,6 +395,7 @@ async function submitOrder() {
   try {
     // Generate order number
     const orderNumber = await generateOrderNumber();
+    const trackingToken = generateRef(10);
 
     const isCustom = items.some(i => i.is_custom);
 
@@ -418,6 +419,7 @@ async function submitOrder() {
         total:            totals.total,
         is_delivery:      orderData.is_delivery,
         is_custom:        isCustom,
+        tracking_token:   trackingToken,
         special_notes:    orderData.special_notes || null,
       })
       .select()
@@ -453,6 +455,7 @@ async function submitOrder() {
     // Show confirmation
     document.getElementById('confirm-order-num').textContent = orderNumber;
     document.getElementById('confirm-whatsapp-btn').href = waUrl;
+    document.getElementById('confirm-track-btn').href = `./track.html?ref=${encodeURIComponent(orderNumber)}&t=${encodeURIComponent(trackingToken)}`;
 
     // Mark progress as all done
     for (let i = 1; i <= 4; i++) {

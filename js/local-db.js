@@ -56,6 +56,7 @@ function getDefaultOrders() {
       total: 3800,
       is_delivery: true,
       is_custom: false,
+      tracking_token: 'TRACKDEMO1',
       special_notes: 'Please write Happy Birthday on the cake.',
       admin_notes: '',
       created_at: new Date(Date.now() - 86400000).toISOString(),
