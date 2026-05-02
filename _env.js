@@ -7,8 +7,8 @@
 
 // 👇 SET THESE FOR LOCAL DEVELOPMENT 👇
 // Get from: Supabase Dashboard → Settings → API
-const LOCAL_SUPABASE_URL = '';       // e.g. 'https://xxxx.supabase.co'
-const LOCAL_SUPABASE_KEY = '';       // e.g. 'eyJhbGciOiJIUzI1Ni...'
+const LOCAL_SUPABASE_URL = '';       // 
+const LOCAL_SUPABASE_KEY = '';       // 
 
 // Check if running on Netlify (build-time injection worked)
 const isNetlifyBuild = "NETLIFY_ENV_SUPABASE_URL" !== 'NETLIFY_ENV_SUPABASE_URL';
