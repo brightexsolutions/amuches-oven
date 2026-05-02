@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — Amuche's Oven Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <style>
+    .order-modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-bottom:var(--sp-5); }
+    .order-modal-field strong { display:block; font-size:var(--fz-xs); font-weight:var(--fw-semibold); letter-spacing:var(--ls-wide); text-transform:uppercase; color:var(--clr-stone-400); margin-bottom:3px; }
+    .order-modal-field span { font-size:var(--fz-sm); color:var(--clr-espresso); }
+    .status-select-row { display:flex; gap:var(--sp-3); align-items:center; flex-wrap:wrap; }
+    @media(max-width:768px){ .order-modal-grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body class="admin-body">
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--sp-4)">
+        <button id="sidebar-mobile-toggle" class="btn btn--ghost btn--sm" style="display:none" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+        <h1 class="admin-page-title">Orders</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <span id="order-count-label" style="font-size:var(--fz-sm);color:var(--clr-stone-400)"></span>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="admin-table-wrapper">
+        <div class="admin-table-header">
+          <div class="admin-table-title">All Orders</div>
+          <div class="admin-table-filters">
+            <div class="admin-search"><i class="fas fa-search"></i><input type="search" id="order-search" placeholder="Search order, name, phone…" /></div>
+            <select class="admin-filter-select" id="filter-status">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="baking">Baking</option>
+              <option value="decorating">Decorating</option>
+              <option value="ready">Ready</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <select class="admin-filter-select" id="filter-payment">
+              <option value="">All Payments</option>
+              <option value="unpaid">Unpaid</option>
+              <option value="partial">Partial</option>
+              <option value="paid">Paid</option>
+            </select>
+            <select class="admin-filter-select" id="filter-source">
+              <option value="">All Sources</option>
+              <option value="website">Website</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="phone">Phone</option>
+            </select>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>Order #</th><th>Customer</th><th>Items</th><th>Total</th>
+              <th>Delivery Date</th><th>Status</th><th>Payment</th><th>Source</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="orders-body">
+              <tr><td colspan="9" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading orders…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="orders-pagination" style="padding:var(--sp-4) var(--sp-6);display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--clr-stone-100);font-size:var(--fz-sm);color:var(--clr-stone-400)">
+          <span id="page-info"></span>
+          <div style="display:flex;gap:var(--sp-2)">
+            <button class="btn btn--ghost btn--sm" id="prev-page" disabled><i class="fas fa-chevron-left"></i></button>
+            <button class="btn btn--ghost btn--sm" id="next-page" disabled><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal-overlay" id="order-modal">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:var(--fz-xl)" id="modal-order-num">Order</h3>
+        <div id="modal-order-badges" style="display:flex;gap:var(--sp-2);margin-top:var(--sp-2)"></div>
+      </div>
+      <button class="modal-close" id="modal-close"><i class="fas fa-xmark"></i></button>
+    </div>
+
+    <div id="modal-body"></div>
+
+    <!-- Status Update -->
+    <div style="border-top:1px solid var(--clr-stone-100);padding-top:var(--sp-5);margin-top:var(--sp-5)">
+      <h4 style="font-size:var(--fz-sm);font-weight:var(--fw-semibold);margin-bottom:var(--sp-4)">Update Status</h4>
+      <div class="status-select-row">
+        <select class="form-select" id="modal-status-select" style="flex:1;max-width:200px"></select>
+        <select class="form-select" id="modal-payment-select" style="flex:1;max-width:180px">
+          <option value="unpaid">Unpaid</option>
+          <option value="partial">Partial Payment</option>
+          <option value="paid">Paid</option>
+        </select>
+        <button class="btn btn--primary" id="modal-save-status"><i class="fas fa-check"></i> Update</button>
+        <button class="btn btn--dark" id="modal-wa-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      </div>
+      <div style="margin-top:var(--sp-4)">
+        <label class="form-label" for="modal-admin-notes" style="margin-bottom:var(--sp-2)">Admin Notes</label>
+        <textarea class="form-textarea" id="modal-admin-notes" rows="2" placeholder="Internal notes about this order…"></textarea>
+      </div>
+      <div style="display:flex;gap:var(--sp-3);margin-top:var(--sp-4);flex-wrap:wrap">
+        <button class="btn btn--outline btn--sm" id="modal-download-receipt"><i class="fas fa-download"></i> Download Receipt</button>
+        <button class="btn btn--ghost btn--sm" id="modal-track-link"><i class="fas fa-external-link"></i> View Tracking Page</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="sidebar-mobile-toggle-fab" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../_env.js"></script>
+<script type="module" src="../js/admin/orders.js"></script>
+</body>
+</html>

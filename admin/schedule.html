@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule — Amuche's Oven Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <style>
+    .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-5)}
+    .cal-nav h2{font-family:var(--font-display);font-size:var(--fz-xl)}
+    .cal-legend{display:flex;gap:var(--sp-4);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+    .legend-item{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fz-xs);font-weight:var(--fw-medium)}
+    .legend-dot{width:10px;height:10px;border-radius:50%}
+    .day-orders-list{max-height:300px;overflow-y:auto}
+    .day-order-item{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--clr-stone-100);font-size:var(--fz-sm)}
+    .day-order-item:last-child{border-bottom:none}
+    @media(max-width:768px){.schedule-grid{grid-template-columns:repeat(7,1fr)!important}.schedule-day{min-height:50px!important}}
+  </style>
+</head>
+<body class="admin-body">
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--sp-4)">
+        <button id="sidebar-mobile-toggle" class="btn btn--ghost btn--sm" style="display:none"><i class="fas fa-bars"></i></button>
+        <h1 class="admin-page-title">Schedule</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <button class="btn btn--outline btn--sm" id="go-today"><i class="fas fa-calendar-day"></i> Today</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <!-- Legend -->
+      <div class="cal-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#FFE4CC"></div> Baking</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#E8D5F5"></div> Decorating</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#D4EDDA"></div> Delivery/Pickup</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#FEF3CD"></div> Pending</div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <div class="cal-nav" style="width:100%;margin:0">
+            <button class="btn btn--ghost btn--sm" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+            <h2 id="cal-month-label">Month Year</h2>
+            <button class="btn btn--ghost btn--sm" id="next-month"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="admin-section-body">
+          <!-- Day headers -->
+          <div class="schedule-grid" style="margin-bottom:var(--sp-2)">
+            <div class="schedule-day-header">Sun</div>
+            <div class="schedule-day-header">Mon</div>
+            <div class="schedule-day-header">Tue</div>
+            <div class="schedule-day-header">Wed</div>
+            <div class="schedule-day-header">Thu</div>
+            <div class="schedule-day-header">Fri</div>
+            <div class="schedule-day-header">Sat</div>
+          </div>
+          <div class="schedule-grid" id="calendar-grid"></div>
+        </div>
+      </div>
+
+      <!-- Day detail panel -->
+      <div class="admin-section" id="day-detail-panel" style="display:none">
+        <div class="admin-section-header">
+          <h2 class="admin-section-title" id="day-detail-title">Orders for Date</h2>
+          <button class="btn btn--ghost btn--sm" id="close-day-panel"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="admin-section-body" style="padding:0">
+          <div class="day-orders-list" id="day-orders-list"></div>
+        </div>
+      </div>
+
+      <!-- Upcoming list -->
+      <div class="admin-section">
+        <div class="admin-section-header">
+          <h2 class="admin-section-title">Next 14 Days</h2>
+        </div>
+        <div class="admin-section-body" style="padding:0">
+          <table>
+            <thead><tr><th>Order</th><th>Customer</th><th>Cake</th><th>Delivery Date</th><th>Time</th><th>Type</th><th>Status</th></tr></thead>
+            <tbody id="upcoming-orders-body"><tr><td colspan="7" class="table-empty"><i class="fas fa-spinner fa-spin"></i></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<button id="sidebar-mobile-toggle-fab" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../_env.js"></script>
+<script type="module" src="../js/admin/schedule.js"></script>
+</body>
+</html>

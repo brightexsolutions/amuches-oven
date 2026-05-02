@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cakes — Amuche's Oven Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <style>
+    .cake-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
+    .variant-row{display:grid;grid-template-columns:1fr 1fr 100px 80px auto;gap:var(--sp-2);align-items:center;padding:var(--sp-2) 0;border-bottom:1px solid var(--clr-stone-100)}
+    .variant-row:last-child{border-bottom:none}
+    @media(max-width:768px){.cake-form-grid{grid-template-columns:1fr}.variant-row{grid-template-columns:1fr 1fr;gap:var(--sp-2)}}
+  </style>
+</head>
+<body class="admin-body">
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--sp-4)">
+        <button id="sidebar-mobile-toggle" class="btn btn--ghost btn--sm" style="display:none"><i class="fas fa-bars"></i></button>
+        <h1 class="admin-page-title">Cakes</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <button class="btn btn--primary" id="add-cake-btn"><i class="fas fa-plus"></i> Add Cake</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="admin-table-wrapper">
+        <div class="admin-table-header">
+          <div class="admin-table-title">Cake Listings</div>
+          <div class="admin-table-filters">
+            <div class="admin-search"><i class="fas fa-search"></i><input type="search" id="cake-search" placeholder="Search cakes…" /></div>
+            <select class="admin-filter-select" id="filter-cat">
+              <option value="">All Categories</option>
+              <option value="birthday">Birthday</option>
+              <option value="wedding">Wedding</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="corporate">Corporate</option>
+              <option value="everyday">Everyday</option>
+              <option value="custom">Custom</option>
+            </select>
+            <select class="admin-filter-select" id="filter-avail">
+              <option value="">All</option>
+              <option value="true">Available</option>
+              <option value="false">Hidden</option>
+            </select>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Base Price</th><th>Variants</th><th>Featured</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="cakes-body"><tr><td colspan="8" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Cake Modal -->
+<div class="modal-overlay" id="cake-modal">
+  <div class="modal" style="max-width:760px;max-height:92vh">
+    <div class="modal-header">
+      <h3 style="font-family:var(--font-display);font-size:var(--fz-xl)" id="cake-modal-title">Add New Cake</h3>
+      <button class="modal-close" id="cake-modal-close"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form id="cake-form">
+      <input type="hidden" id="cake-id" />
+
+      <!-- Basic Info -->
+      <div class="cake-form-grid" style="margin-bottom:var(--sp-5)">
+        <div class="form-group form-full" style="grid-column:1/-1">
+          <label class="form-label">Cake Name <span class="required">*</span></label>
+          <input class="form-input" id="f-name" placeholder="Classic Birthday Cake" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category <span class="required">*</span></label>
+          <select class="form-select" id="f-category" required>
+            <option value="birthday">Birthday</option>
+            <option value="wedding">Wedding</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="corporate">Corporate</option>
+            <option value="everyday">Everyday</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Base Price (KSh) <span class="required">*</span></label>
+          <input class="form-input" id="f-base-price" type="number" min="0" placeholder="1200" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Min. Order Days</label>
+          <input class="form-input" id="f-min-days" type="number" min="1" value="3" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Slug (URL)</label>
+          <input class="form-input" id="f-slug" placeholder="auto-generated" />
+        </div>
+        <div class="form-group form-full" style="grid-column:1/-1">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" id="f-description" rows="3" placeholder="Describe this cake…"></textarea>
+        </div>
+        <div class="form-group" style="grid-column:1/-1;display:flex;gap:var(--sp-6)">
+          <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;font-size:var(--fz-sm)">
+            <input type="checkbox" id="f-available" checked /> Available on menu
+          </label>
+          <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;font-size:var(--fz-sm)">
+            <input type="checkbox" id="f-featured" /> Featured on homepage
+          </label>
+          <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;font-size:var(--fz-sm)">
+            <input type="checkbox" id="f-allows-custom" /> Allows custom orders
+          </label>
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div style="margin-bottom:var(--sp-5)">
+        <label class="form-label" style="margin-bottom:var(--sp-3)">Images</label>
+        <div class="image-upload-zone" id="image-drop-zone">
+          <i class="fas fa-cloud-arrow-up"></i>
+          <p>Drag &amp; drop images here, or <span>click to browse</span></p>
+          <p style="font-size:var(--fz-xs);color:var(--clr-stone-400);margin-top:4px">JPG, PNG, WebP · Max 5MB each</p>
+          <input type="file" id="image-file-input" multiple accept="image/*" style="display:none" />
+        </div>
+        <div class="image-preview-grid" id="image-preview-grid"></div>
+        <p style="font-size:var(--fz-xs);color:var(--clr-stone-400);margin-top:var(--sp-2)">
+          <i class="fas fa-info-circle"></i> Click an image to set it as primary. First image shown on listing.
+        </p>
+      </div>
+
+      <!-- Variants -->
+      <div style="margin-bottom:var(--sp-5)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-3)">
+          <label class="form-label" style="margin:0">Flavour &amp; Size Variants</label>
+          <button type="button" class="btn btn--outline btn--sm" id="add-variant-btn"><i class="fas fa-plus"></i> Add Variant</button>
+        </div>
+        <div style="background:var(--clr-stone-100);border-radius:var(--radius-md);padding:var(--sp-4)">
+          <div class="variant-row" style="font-size:var(--fz-xs);font-weight:var(--fw-semibold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--clr-stone-400);border-bottom:2px solid var(--clr-stone-200);padding-bottom:var(--sp-2)">
+            <span>Flavour</span><span>Size / Description</span><span>Price (KSh)</span><span>Serves</span><span></span>
+          </div>
+          <div id="variants-list"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:var(--sp-3);padding-top:var(--sp-4);border-top:1px solid var(--clr-stone-100)">
+        <button type="button" class="btn btn--ghost" id="cake-cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="cake-save-btn"><i class="fas fa-save"></i> Save Cake</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<button id="sidebar-mobile-toggle-fab" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../_env.js"></script>
+<script type="module" src="../js/admin/cakes.js"></script>
+</body>
+</html>

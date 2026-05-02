@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Amuche's Oven Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="admin-body">
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--sp-4)">
+        <button id="sidebar-mobile-toggle" class="btn btn--ghost btn--sm" style="display:none"><i class="fas fa-bars"></i></button>
+        <h1 class="admin-page-title">Settings</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <button class="btn btn--primary" id="save-settings-btn"><i class="fas fa-save"></i> Save All</button>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6)">
+
+        <!-- Business Info -->
+        <div class="admin-section">
+          <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-store" style="color:var(--clr-terracotta)"></i> Business Info</h2></div>
+          <div class="admin-section-body">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+              <div class="form-group">
+                <label class="form-label">Business Phone / WhatsApp</label>
+                <input class="form-input" id="s-phone" placeholder="+254700000000" />
+                <span class="form-hint">Used for WhatsApp order confirmations</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Email</label>
+                <input class="form-input" id="s-email" type="email" placeholder="hello@amuchesoven.co.ke" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Address</label>
+                <input class="form-input" id="s-address" placeholder="Nairobi, Kenya" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Hours</label>
+                <input class="form-input" id="s-hours" placeholder="8AM – 8PM (Mon–Sat)" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Settings -->
+        <div class="admin-section">
+          <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-gear" style="color:var(--clr-terracotta)"></i> Order Settings</h2></div>
+          <div class="admin-section-body">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+              <div class="form-group">
+                <label class="form-label">Default Delivery Fee (KSh)</label>
+                <input class="form-input" id="s-delivery-fee" type="number" min="0" placeholder="300" />
+                <span class="form-hint">Charged on orders below free delivery threshold</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Minimum Advance Order Days</label>
+                <input class="form-input" id="s-min-days" type="number" min="1" placeholder="3" />
+                <span class="form-hint">Customers must order this many days in advance</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Currency Symbol</label>
+                <input class="form-input" id="s-currency" placeholder="KSh" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="admin-section">
+          <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-share-nodes" style="color:var(--clr-terracotta)"></i> Social Media</h2></div>
+          <div class="admin-section-body">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+              <div class="form-group">
+                <label class="form-label"><i class="fab fa-instagram" style="color:#E1306C"></i> Instagram URL</label>
+                <input class="form-input" id="s-instagram" placeholder="https://instagram.com/amuchesoven" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"><i class="fab fa-facebook-f" style="color:#1877F2"></i> Facebook URL</label>
+                <input class="form-input" id="s-facebook" placeholder="https://facebook.com/amuchesoven" />
+              </div>
+              <div class="form-group">
+                <label class="form-label"><i class="fab fa-tiktok"></i> TikTok URL</label>
+                <input class="form-input" id="s-tiktok" placeholder="https://tiktok.com/@amuchesoven" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Account -->
+        <div class="admin-section">
+          <div class="admin-section-header"><h2 class="admin-section-title"><i class="fas fa-user-shield" style="color:var(--clr-terracotta)"></i> Admin Account</h2></div>
+          <div class="admin-section-body">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-4)">
+              <div id="current-admin-email" style="font-size:var(--fz-sm);color:var(--clr-stone-500);padding:var(--sp-3);background:var(--clr-stone-100);border-radius:var(--radius-md)">
+                Loading…
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input class="form-input" id="s-new-pw" type="password" placeholder="Leave blank to keep current" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input class="form-input" id="s-confirm-pw" type="password" placeholder="Re-enter new password" />
+              </div>
+              <button class="btn btn--outline btn--sm" id="update-pw-btn" style="align-self:flex-start">
+                <i class="fas fa-lock"></i> Update Password
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+
+      <!-- Danger Zone -->
+      <div class="admin-section" style="margin-top:var(--sp-6);border:1px solid rgba(181,58,42,0.2)">
+        <div class="admin-section-header"><h2 class="admin-section-title" style="color:var(--clr-error)"><i class="fas fa-triangle-exclamation"></i> Danger Zone</h2></div>
+        <div class="admin-section-body" style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap">
+          <div style="flex:1">
+            <strong style="font-size:var(--fz-sm)">Clear all cancelled orders</strong>
+            <p style="font-size:var(--fz-xs);color:var(--clr-stone-400);margin:4px 0 0">Permanently removes cancelled orders from database. Cannot be undone.</p>
+          </div>
+          <button class="btn btn--sm" id="clear-cancelled-btn" style="background:rgba(181,58,42,0.1);color:var(--clr-error);border:1px solid rgba(181,58,42,0.2)">
+            <i class="fas fa-trash"></i> Clear Cancelled Orders
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<button id="sidebar-mobile-toggle-fab" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../_env.js"></script>
+<script type="module" src="../js/admin/settings.js"></script>
+</body>
+</html>

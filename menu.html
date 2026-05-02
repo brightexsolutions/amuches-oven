@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse Amuche's Oven handcrafted cakes — birthday, wedding, anniversary, corporate and custom cakes in Nairobi, Kenya." />
+  <title>Our Cakes — Amuche's Oven</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/nav.css" />
+  <link rel="stylesheet" href="./css/cart.css" />
+  <link rel="stylesheet" href="./css/menu.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<!-- Announcement Bar -->
+<div class="site-header">
+<div class="announcement-bar" id="announcement-bar">
+  <i class="fas fa-gift" aria-hidden="true"></i>&nbsp;
+  Free delivery on wedding cakes &amp; orders above KSh 5,000 within Nairobi.
+  <a href="./order.html">Order now →</a>
+  <button class="announcement-bar-close" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
+</div>
+
+<!-- Nav -->
+<nav class="site-nav solid" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <span class="nav-logo-name">Amuche's Oven</span>
+      <span class="nav-logo-tag">Handcrafted Cakes · Nairobi</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="./index.html" class="nav-link">Home</a></li>
+      <li><a href="./menu.html"  class="nav-link active">Our Cakes</a></li>
+      <li><a href="./order.html" class="nav-link">Order</a></li>
+      <li><a href="./track.html" class="nav-link">Track Order</a></li>
+      <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Open cart">
+        <i class="fas fa-bag-shopping"></i>
+        <span class="cart-count hidden">0</span>
+      </button>
+      <a href="./order.html" class="btn btn--primary btn--sm nav-cta">
+        <i class="fas fa-cake-candles"></i> Order a Cake
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+</div><!-- /.site-header -->
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <ul class="mobile-nav-links">
+    <li><a href="./index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="./menu.html"  class="mobile-nav-link active"><i class="fas fa-cake-candles"></i> Our Cakes</a></li>
+    <li><a href="./order.html" class="mobile-nav-link"><i class="fas fa-pen-to-square"></i> Place an Order</a></li>
+    <li><a href="./track.html" class="mobile-nav-link"><i class="fas fa-magnifying-glass"></i> Track Your Order</a></li>
+    <li><a href="./index.html#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-actions">
+    <a href="./order.html" class="btn btn--primary" style="width:100%;justify-content:center;">
+      <i class="fas fa-cake-candles"></i> Order a Cake
+    </a>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<aside id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Cart</h2>
+    <button id="cart-drawer-close" class="cart-drawer-close"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div id="cart-drawer-content"></div>
+</aside>
+
+<!-- ── Page Hero ── -->
+<section class="menu-hero">
+  <div class="menu-hero-content container">
+    <span class="section-label">Handcrafted in Nairobi</span>
+    <h1 class="section-title" style="margin:var(--sp-3) 0 var(--sp-4)">Our Cake Collection</h1>
+    <p class="section-subtitle" style="margin:0 auto">
+      From intimate birthday cakes to grand wedding masterpieces — every cake is baked fresh to order, with love and quality ingredients.
+    </p>
+  </div>
+</section>
+
+<!-- ── Filter Bar ── -->
+<div class="filter-bar" id="filter-bar" role="search" aria-label="Filter cakes">
+  <div class="container filter-inner">
+    <div class="filter-tabs" role="tablist" aria-label="Cake categories">
+      <button class="filter-tab active" data-cat="all"         role="tab" aria-selected="true">All Cakes</button>
+      <button class="filter-tab"        data-cat="birthday"    role="tab" aria-selected="false"><i class="fas fa-birthday-cake"></i> Birthday</button>
+      <button class="filter-tab"        data-cat="wedding"     role="tab" aria-selected="false"><i class="fas fa-rings-wedding"></i> Wedding</button>
+      <button class="filter-tab"        data-cat="anniversary" role="tab" aria-selected="false"><i class="fas fa-heart"></i> Anniversary</button>
+      <button class="filter-tab"        data-cat="corporate"   role="tab" aria-selected="false"><i class="fas fa-briefcase"></i> Corporate</button>
+      <button class="filter-tab"        data-cat="everyday"    role="tab" aria-selected="false"><i class="fas fa-star"></i> Everyday</button>
+      <button class="filter-tab"        data-cat="custom"      role="tab" aria-selected="false"><i class="fas fa-wand-magic-sparkles"></i> Custom</button>
+    </div>
+
+    <div class="filter-right">
+      <div class="filter-search-wrap">
+        <i class="fas fa-magnifying-glass"></i>
+        <input
+          type="search"
+          id="cake-search"
+          class="filter-search-input"
+          placeholder="Search cakes…"
+          aria-label="Search cakes"
+        />
+      </div>
+      <select class="filter-sort-select" id="sort-select" aria-label="Sort cakes">
+        <option value="display_order">Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name A–Z</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ── Cakes Grid ── -->
+<section class="cakes-section" aria-live="polite" aria-label="Cake listings">
+  <div class="container">
+    <div class="cakes-result-bar" id="cakes-result-bar">
+      <span id="results-count"></span>
+    </div>
+    <div class="cakes-grid" id="cakes-grid">
+      <!-- Skeleton -->
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+      <div class="skeleton-card" aria-hidden="true"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-line skeleton-line--short"></div><div class="skeleton skeleton-line skeleton-line--med"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Custom Order CTA ── -->
+<section class="custom-order-banner" aria-label="Request a custom cake">
+  <div class="custom-order-banner-inner container">
+    <span class="section-label" style="color:var(--clr-caramel)">Don't see what you're looking for?</span>
+    <h2 class="section-title" style="color:var(--clr-cream);margin:var(--sp-3) 0 var(--sp-4)">
+      Let's Create Something<br/>Just for You
+    </h2>
+    <p class="section-subtitle" style="color:rgba(250,240,226,.65);margin:0 auto var(--sp-8)">
+      Describe your dream cake and we'll make it a reality. Custom designs, flavours, and sizes available.
+    </p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:var(--sp-4);flex-wrap:wrap">
+      <a href="./order.html?type=custom" class="btn btn--primary btn--lg">
+        <i class="fas fa-wand-magic-sparkles"></i> Request Custom Cake
+      </a>
+      <a id="menu-whatsapp-btn" href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Amuche's Oven</div>
+        <span class="footer-brand-tag">Handcrafted Cakes · Nairobi, Kenya</span>
+        <p class="footer-brand-desc">Handcrafted cakes made with love for your most meaningful celebrations. Every cake baked fresh, to order.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-link" aria-label="WhatsApp" id="footer-whatsapp-social" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Our Cakes</div>
+        <ul class="footer-links">
+          <li><a href="./menu.html?cat=birthday"    class="footer-link">Birthday Cakes</a></li>
+          <li><a href="./menu.html?cat=wedding"     class="footer-link">Wedding Cakes</a></li>
+          <li><a href="./menu.html?cat=anniversary" class="footer-link">Anniversary Cakes</a></li>
+          <li><a href="./menu.html?cat=corporate"   class="footer-link">Corporate Cakes</a></li>
+          <li><a href="./order.html?type=custom"    class="footer-link">Custom Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="./index.html" class="footer-link">Home</a></li>
+          <li><a href="./order.html" class="footer-link">Place an Order</a></li>
+          <li><a href="./track.html" class="footer-link">Track Your Order</a></li>
+          <li><a href="./index.html#contact" class="footer-link">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a id="footer-phone" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a id="footer-email" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span id="footer-hours">Loading…</span></div>
+        <div class="footer-contact-item"><i class="fas fa-location-dot"></i><span>Nairobi, Kenya</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="footer-year"></span> Amuche's Oven. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top-btn" id="scroll-top" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./_env.js"></script>
+<script type="module" src="./js/nav.js"></script>
+<script type="module" src="./js/menu.js"></script>
+</body>
+</html>

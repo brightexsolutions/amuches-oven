@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Place your cake order from Amuche's Oven — fresh baked, delivered across Nairobi, Kenya." />
+  <title>Place an Order — Amuche's Oven</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/nav.css" />
+  <link rel="stylesheet" href="./css/cart.css" />
+  <link rel="stylesheet" href="./css/order.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<!-- Announcement Bar -->
+<div class="site-header">
+<div class="announcement-bar" id="announcement-bar">
+  <i class="fas fa-gift"></i>&nbsp; Free delivery on orders above KSh 5,000 within Nairobi.
+  <a href="./menu.html">Browse cakes →</a>
+  <button class="announcement-bar-close" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
+</div>
+
+<!-- Nav -->
+<nav class="site-nav solid" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <span class="nav-logo-name">Amuche's Oven</span>
+      <span class="nav-logo-tag">Handcrafted Cakes · Nairobi</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="./index.html" class="nav-link">Home</a></li>
+      <li><a href="./menu.html"  class="nav-link">Our Cakes</a></li>
+      <li><a href="./order.html" class="nav-link active">Order</a></li>
+      <li><a href="./track.html" class="nav-link">Track Order</a></li>
+      <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Open cart">
+        <i class="fas fa-bag-shopping"></i>
+        <span class="cart-count hidden">0</span>
+      </button>
+      <a href="./menu.html" class="btn btn--outline btn--sm nav-cta">
+        <i class="fas fa-cake-candles"></i> Add More Cakes
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+</div><!-- /.site-header -->
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <ul class="mobile-nav-links">
+    <li><a href="./index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="./menu.html"  class="mobile-nav-link"><i class="fas fa-cake-candles"></i> Our Cakes</a></li>
+    <li><a href="./order.html" class="mobile-nav-link active"><i class="fas fa-pen-to-square"></i> Place an Order</a></li>
+    <li><a href="./track.html" class="mobile-nav-link"><i class="fas fa-magnifying-glass"></i> Track Your Order</a></li>
+    <li><a href="./index.html#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-actions">
+    <a href="./menu.html" class="btn btn--primary" style="width:100%;justify-content:center;">
+      <i class="fas fa-cake-candles"></i> Browse Cakes
+    </a>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<aside id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Cart</h2>
+    <button id="cart-drawer-close" class="cart-drawer-close"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div id="cart-drawer-content"></div>
+</aside>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- ORDER PAGE                                  -->
+<!-- ══════════════════════════════════════════ -->
+<main class="order-page">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div class="order-page-header">
+      <span class="section-label">Almost There</span>
+      <h1 class="section-title">Place Your Order</h1>
+      <p>Fill in the details below and we'll confirm within 24 hours</p>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="order-progress" role="list" aria-label="Order steps">
+      <div class="progress-step active" id="prog-1" role="listitem">
+        <div class="progress-step-circle"><i class="fas fa-bag-shopping"></i></div>
+        <div class="progress-step-label">Your Cart</div>
+      </div>
+      <div class="progress-connector" id="conn-1"></div>
+      <div class="progress-step" id="prog-2" role="listitem">
+        <div class="progress-step-circle"><i class="fas fa-user"></i></div>
+        <div class="progress-step-label">Your Details</div>
+      </div>
+      <div class="progress-connector" id="conn-2"></div>
+      <div class="progress-step" id="prog-3" role="listitem">
+        <div class="progress-step-circle"><i class="fas fa-truck"></i></div>
+        <div class="progress-step-label">Delivery</div>
+      </div>
+      <div class="progress-connector" id="conn-3"></div>
+      <div class="progress-step" id="prog-4" role="listitem">
+        <div class="progress-step-circle"><i class="fas fa-check"></i></div>
+        <div class="progress-step-label">Confirm</div>
+      </div>
+    </div>
+
+    <!-- ── CUSTOM ORDER NOTICE (shown when ?type=custom) ── -->
+    <div class="custom-order-notice hidden" id="custom-order-notice">
+      <i class="fas fa-wand-magic-sparkles"></i>
+      <div>
+        <strong>Custom Order Request</strong>
+        <p>Describe your cake in the special instructions. We'll review, confirm pricing, and send a quote before baking begins.</p>
+      </div>
+    </div>
+
+    <!-- ── Main layout ── -->
+    <div class="order-layout">
+      <div class="order-form-area">
+
+        <!-- ── STEP 1: Cart Review ── -->
+        <div class="order-step active" id="step-1" role="region" aria-label="Step 1: Your cart">
+          <div class="order-step-card">
+            <h2 class="order-step-heading">
+              <i class="fas fa-bag-shopping"></i> Review Your Cart
+            </h2>
+            <div id="order-cart-items">
+              <!-- Populated by JS -->
+            </div>
+            <div id="order-empty-cart" class="order-empty hidden">
+              <i class="fas fa-bag-shopping"></i>
+              <h3>Your cart is empty</h3>
+              <p>Browse our cakes and add something delicious to your cart first.</p>
+              <a href="./menu.html" class="btn btn--primary">
+                <i class="fas fa-cake-candles"></i> Browse Our Cakes
+              </a>
+            </div>
+          </div>
+
+          <!-- Custom order add-on -->
+          <div class="order-step-card" id="custom-add-section">
+            <h2 class="order-step-heading">
+              <i class="fas fa-wand-magic-sparkles"></i> Add a Custom Cake
+            </h2>
+            <p style="font-size:var(--fz-sm);color:var(--clr-stone-500);margin-bottom:var(--sp-4)">
+              Can't find exactly what you want? Describe your dream cake and we'll price it for you.
+            </p>
+            <div class="form-group">
+              <label class="form-label" for="custom-cake-desc">Custom Cake Description</label>
+              <textarea class="form-textarea" id="custom-cake-desc" placeholder="E.g. 3-tier blue and gold wedding cake with floral fondant decorations, chocolate sponge, serves 80…" rows="4"></textarea>
+            </div>
+            <button class="btn btn--outline" id="add-custom-btn" style="margin-top:var(--sp-3)">
+              <i class="fas fa-plus"></i> Add Custom Cake to Order
+            </button>
+          </div>
+
+          <div class="step-nav step-nav--end">
+            <button class="btn btn--primary btn--lg" id="step1-next" disabled>
+              Continue to Details <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 2: Customer Details ── -->
+        <div class="order-step" id="step-2" role="region" aria-label="Step 2: Your details">
+          <div class="order-step-card">
+            <h2 class="order-step-heading">
+              <i class="fas fa-user"></i> Your Details
+            </h2>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="cust-name">Full Name <span class="required">*</span></label>
+                <input class="form-input" type="text" id="cust-name" name="name" placeholder="Wanjiru Kamau" autocomplete="name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cust-phone">Phone / WhatsApp <span class="required">*</span></label>
+                <input class="form-input" type="tel" id="cust-phone" name="phone" placeholder="+254 700 000 000" autocomplete="tel" required />
+                <span class="form-hint">We'll send your order confirmation here</span>
+              </div>
+              <div class="form-group form-full">
+                <label class="form-label" for="cust-email">Email Address</label>
+                <input class="form-input" type="email" id="cust-email" name="email" placeholder="wanjiru@example.co.ke" autocomplete="email" />
+                <span class="form-hint">Optional — for order receipt</span>
+              </div>
+              <div class="form-group form-full">
+                <label class="form-label" for="cust-notes">Special Instructions</label>
+                <textarea class="form-textarea" id="cust-notes" name="notes" placeholder="Any notes about your order — cake message, allergen info, design references…" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="step-nav">
+            <button class="btn btn--ghost" id="step2-back">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn--primary btn--lg" id="step2-next">
+              Continue to Delivery <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3: Delivery Details ── -->
+        <div class="order-step" id="step-3" role="region" aria-label="Step 3: Delivery">
+          <div class="order-step-card">
+            <h2 class="order-step-heading">
+              <i class="fas fa-truck"></i> Delivery Details
+            </h2>
+
+            <!-- Delivery or Pickup -->
+            <div class="form-group" style="margin-bottom:var(--sp-6)">
+              <span class="form-label">How would you like to receive your cake? <span class="required">*</span></span>
+              <div class="delivery-toggle" style="margin-top:var(--sp-3)">
+                <div class="delivery-option">
+                  <input type="radio" name="delivery_type" id="del-delivery" value="delivery" checked />
+                  <label class="delivery-option-label" for="del-delivery">
+                    <i class="fas fa-truck"></i>
+                    <strong>Delivery</strong>
+                    <span>We bring it to you</span>
+                  </label>
+                </div>
+                <div class="delivery-option">
+                  <input type="radio" name="delivery_type" id="del-pickup" value="pickup" />
+                  <label class="delivery-option-label" for="del-pickup">
+                    <i class="fas fa-store"></i>
+                    <strong>Pickup</strong>
+                    <span>Collect from us</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery address (shown when delivery selected) -->
+            <div id="delivery-address-section">
+              <div class="form-group" style="margin-bottom:var(--sp-4)">
+                <label class="form-label" for="del-address">Delivery Address <span class="required">*</span></label>
+                <input class="form-input" type="text" id="del-address" placeholder="Street, estate, building — e.g. 14 Ngong Road, Karen, Nairobi" autocomplete="street-address" />
+                <span class="form-hint">We deliver across Nairobi. Delivery fee: KSh 300 (free above KSh 5,000)</span>
+              </div>
+            </div>
+
+            <!-- Date + Time -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="del-date">
+                  Delivery / Pickup Date <span class="required">*</span>
+                </label>
+                <input class="form-input" type="date" id="del-date" min="" required />
+                <span class="form-hint" id="date-hint">Minimum 3 days advance notice required</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="del-time">Preferred Time Slot</label>
+                <select class="form-select" id="del-time">
+                  <option value="">Select time slot</option>
+                  <option value="Morning (8AM–12PM)">Morning (8AM–12PM)</option>
+                  <option value="Afternoon (12PM–4PM)">Afternoon (12PM–4PM)</option>
+                  <option value="Evening (4PM–7PM)">Evening (4PM–7PM)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Payment method -->
+            <div class="form-group" style="margin-top:var(--sp-6)">
+              <span class="form-label">Payment Method <span class="required">*</span></span>
+              <div class="payment-options" style="margin-top:var(--sp-3)">
+                <div class="payment-option">
+                  <input type="radio" name="payment_method" id="pay-mpesa" value="mobile_money" checked />
+                  <label class="payment-option-label" for="pay-mpesa">
+                    <div class="payment-option-icon">📱</div>
+                    <div class="payment-option-text">
+                      <strong>M-Pesa</strong>
+                      <span>Till or paybill — details sent on confirmation</span>
+                    </div>
+                    <div class="payment-option-check"></div>
+                  </label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" name="payment_method" id="pay-bank" value="bank_transfer" />
+                  <label class="payment-option-label" for="pay-bank">
+                    <div class="payment-option-icon">🏦</div>
+                    <div class="payment-option-text">
+                      <strong>Bank Transfer</strong>
+                      <span>Account details sent on confirmation</span>
+                    </div>
+                    <div class="payment-option-check"></div>
+                  </label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" name="payment_method" id="pay-cash" value="cash" />
+                  <label class="payment-option-label" for="pay-cash">
+                    <div class="payment-option-icon">💵</div>
+                    <div class="payment-option-text">
+                      <strong>Cash on Delivery / Pickup</strong>
+                      <span>Pay when you receive your cake</span>
+                    </div>
+                    <div class="payment-option-check"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn--ghost" id="step3-back">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="btn btn--primary btn--lg" id="step3-next">
+              Review Order <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 4: Review & Confirm ── -->
+        <div class="order-step" id="step-4" role="region" aria-label="Step 4: Confirm order">
+          <div class="order-step-card">
+            <h2 class="order-step-heading">
+              <i class="fas fa-check"></i> Review &amp; Confirm
+            </h2>
+            <div id="review-content"><!-- populated by JS --></div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn btn--ghost" id="step4-back">
+              <i class="fas fa-arrow-left"></i> Edit Order
+            </button>
+            <button class="btn btn--primary btn--lg" id="submit-order-btn">
+              <i class="fas fa-lock"></i> Confirm &amp; Place Order
+            </button>
+          </div>
+        </div>
+
+        <!-- ── STEP 5: Confirmation ── -->
+        <div class="order-step" id="step-5" role="region" aria-label="Order confirmed">
+          <div class="order-step-card">
+            <div class="order-confirmation">
+              <div class="confirmation-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <h2 class="confirmation-title">Order Placed!</h2>
+              <p class="confirmation-subtitle">
+                Thank you for ordering from Amuche's Oven. We've received your order and will confirm it via WhatsApp within 24 hours.
+              </p>
+
+              <div class="confirmation-order-ref">
+                <div class="confirmation-ref-label">Your Order Reference</div>
+                <div class="confirmation-ref-number" id="confirm-order-num">—</div>
+                <div style="font-size:var(--fz-xs);color:var(--clr-stone-400);margin-top:var(--sp-2)">
+                  Save this number to track your order
+                </div>
+              </div>
+
+              <div class="confirmation-steps">
+                <div class="confirmation-step-item">
+                  <div class="confirmation-step-num">1</div>
+                  <div class="confirmation-step-text">
+                    <strong>We'll confirm via WhatsApp</strong>
+                    <p>Expect a message within 24 hours with payment details and baking timeline.</p>
+                  </div>
+                </div>
+                <div class="confirmation-step-item">
+                  <div class="confirmation-step-num">2</div>
+                  <div class="confirmation-step-text">
+                    <strong>Make your payment</strong>
+                    <p>Send payment via M-Pesa or bank transfer once confirmed. Baking starts after payment.</p>
+                  </div>
+                </div>
+                <div class="confirmation-step-item">
+                  <div class="confirmation-step-num">3</div>
+                  <div class="confirmation-step-text">
+                    <strong>Track your order</strong>
+                    <p>Use your order reference to track progress from baking to delivery on our tracking page.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="confirmation-actions">
+                <a id="confirm-whatsapp-btn" href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+                  <i class="fab fa-whatsapp"></i> Message Us on WhatsApp
+                </a>
+                <a href="./track.html" class="btn btn--outline btn--lg">
+                  <i class="fas fa-magnifying-glass"></i> Track Your Order
+                </a>
+                <a href="./menu.html" class="btn btn--ghost btn--lg">
+                  <i class="fas fa-cake-candles"></i> Browse More Cakes
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /order-form-area -->
+
+      <!-- ── Sidebar ── -->
+      <aside class="order-sidebar" aria-label="Order summary">
+        <div class="order-summary-card">
+          <div class="order-summary-title">Order Summary</div>
+          <div class="summary-items" id="sidebar-items"><!-- populated by JS --></div>
+          <div class="summary-totals">
+            <div class="summary-row"><span>Subtotal</span><span id="sidebar-subtotal">KSh 0</span></div>
+            <div class="summary-row"><span>Delivery fee</span><span id="sidebar-delivery">KSh 300</span></div>
+            <div class="summary-row summary-row--total"><span>Total</span><span id="sidebar-total">KSh 0</span></div>
+          </div>
+        </div>
+
+        <div class="order-trust-badges">
+          <div class="trust-badge"><i class="fas fa-shield-halved"></i> Secure &amp; confidential order</div>
+          <div class="trust-badge"><i class="fas fa-cake-candles"></i> Baked fresh on your order date</div>
+          <div class="trust-badge"><i class="fas fa-truck"></i> Delivery across Nairobi</div>
+          <div class="trust-badge"><i class="fab fa-whatsapp" style="color:#25D366"></i> Confirmation via WhatsApp</div>
+        </div>
+      </aside>
+
+    </div><!-- /order-layout -->
+  </div><!-- /container -->
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Amuche's Oven</div>
+        <span class="footer-brand-tag">Handcrafted Cakes · Nairobi, Kenya</span>
+        <p class="footer-brand-desc">Handcrafted cakes made with love for your most meaningful celebrations.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-link" id="footer-whatsapp-social" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="./index.html" class="footer-link">Home</a></li>
+          <li><a href="./menu.html"  class="footer-link">Our Cakes</a></li>
+          <li><a href="./order.html" class="footer-link">Place an Order</a></li>
+          <li><a href="./track.html" class="footer-link">Track Your Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a id="footer-phone" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a id="footer-email" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span id="footer-hours">Loading…</span></div>
+        <div class="footer-contact-item"><i class="fas fa-location-dot"></i><span>Nairobi, Kenya</span></div>
+      </div>
+      <div>
+        <div class="footer-heading">Need Help?</div>
+        <p style="font-size:var(--fz-sm);color:rgba(250,240,226,0.55);margin-bottom:var(--sp-4);line-height:var(--lh-relaxed)">
+          Questions about your order? Chat with us on WhatsApp.
+        </p>
+        <a id="footer-whatsapp-cta" href="#" class="btn btn--whatsapp btn--sm" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Chat with Us
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="footer-year"></span> Amuche's Oven. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./_env.js"></script>
+<script type="module" src="./js/nav.js"></script>
+<script type="module" src="./js/order.js"></script>
+</body>
+</html>

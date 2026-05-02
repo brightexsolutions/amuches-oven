@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Amuche's Oven Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="admin-body">
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--sp-4)">
+        <button id="sidebar-mobile-toggle" class="btn btn--ghost btn--sm" style="display:none;padding:var(--sp-2)" aria-label="Toggle sidebar">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="admin-page-title">Dashboard</h1>
+      </div>
+      <div class="admin-topbar-actions">
+        <span id="topbar-date" style="font-size:var(--fz-sm);color:var(--clr-stone-400)"></span>
+        <a href="../order.html" target="_blank" class="btn btn--primary btn--sm"><i class="fas fa-plus"></i> New Order</a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <!-- Stats -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card"><div><div class="stat-label">Today's Orders</div><div class="stat-value" id="stat-today">—</div></div><div class="stat-icon stat-icon--terracotta"><i class="fas fa-cake-candles"></i></div></div>
+        <div class="stat-card"><div><div class="stat-label">Pending</div><div class="stat-value" id="stat-pending">—</div></div><div class="stat-icon stat-icon--gold"><i class="fas fa-clock"></i></div></div>
+        <div class="stat-card"><div><div class="stat-label">This Month Revenue</div><div class="stat-value" id="stat-revenue">—</div></div><div class="stat-icon stat-icon--sage"><i class="fas fa-coins"></i></div></div>
+        <div class="stat-card"><div><div class="stat-label">Total Orders</div><div class="stat-value" id="stat-total">—</div></div><div class="stat-icon stat-icon--mahogany"><i class="fas fa-list-check"></i></div></div>
+      </div>
+
+      <!-- Recent orders + upcoming deliveries -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6)">
+
+        <!-- Recent Orders -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title">Recent Orders</h2>
+            <a href="./orders.html" class="btn btn--ghost btn--sm">View All <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="admin-section-body" style="padding:0">
+            <table id="recent-orders-table">
+              <thead><tr>
+                <th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th>
+              </tr></thead>
+              <tbody id="recent-orders-body">
+                <tr><td colspan="5" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Upcoming Deliveries -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h2 class="admin-section-title">Upcoming Deliveries</h2>
+            <a href="./schedule.html" class="btn btn--ghost btn--sm">Schedule <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="admin-section-body" style="padding:0">
+            <table id="upcoming-table">
+              <thead><tr>
+                <th>Order</th><th>Customer</th><th>Date</th><th>Status</th>
+              </tr></thead>
+              <tbody id="upcoming-body">
+                <tr><td colspan="4" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- WhatsApp Orders -->
+      <div class="admin-section" style="margin-top:var(--sp-6)">
+        <div class="admin-section-header">
+          <h2 class="admin-section-title"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp Orders (Untracked)</h2>
+          <span id="wa-order-count" style="font-size:var(--fz-sm);color:var(--clr-stone-400)"></span>
+        </div>
+        <div class="admin-section-body" style="padding:0">
+          <table>
+            <thead><tr><th>Reference</th><th>Phone</th><th>Message Preview</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody id="wa-orders-body">
+              <tr><td colspan="5" class="table-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<button id="sidebar-mobile-toggle-fab" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fas fa-bars"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="../_env.js"></script>
+<script type="module" src="../js/admin/index.js"></script>
+</body>
+</html>

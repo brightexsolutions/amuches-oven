@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Track your cake order from Amuche's Oven, Nairobi." />
+  <title>Track Your Order — Amuche's Oven</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/nav.css" />
+  <link rel="stylesheet" href="./css/cart.css" />
+  <link rel="stylesheet" href="./css/order.css" />
+</head>
+<body>
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<div class="site-header">
+<div class="announcement-bar" id="announcement-bar">
+  <i class="fas fa-gift"></i>&nbsp; Free delivery on orders above KSh 5,000 within Nairobi.
+  <a href="./menu.html">Order now →</a>
+  <button class="announcement-bar-close" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
+</div>
+
+<nav class="site-nav solid" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <span class="nav-logo-name">Amuche's Oven</span>
+      <span class="nav-logo-tag">Handcrafted Cakes · Nairobi</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="./index.html" class="nav-link">Home</a></li>
+      <li><a href="./menu.html"  class="nav-link">Our Cakes</a></li>
+      <li><a href="./order.html" class="nav-link">Order</a></li>
+      <li><a href="./track.html" class="nav-link active">Track Order</a></li>
+      <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Open cart"><i class="fas fa-bag-shopping"></i><span class="cart-count hidden">0</span></button>
+      <a href="./menu.html" class="btn btn--primary btn--sm nav-cta"><i class="fas fa-cake-candles"></i> Order a Cake</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+</div><!-- /.site-header -->
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <ul class="mobile-nav-links">
+    <li><a href="./index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="./menu.html"  class="mobile-nav-link"><i class="fas fa-cake-candles"></i> Our Cakes</a></li>
+    <li><a href="./order.html" class="mobile-nav-link"><i class="fas fa-pen-to-square"></i> Place an Order</a></li>
+    <li><a href="./track.html" class="mobile-nav-link active"><i class="fas fa-magnifying-glass"></i> Track Your Order</a></li>
+    <li><a href="./index.html#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-actions">
+    <a href="./order.html" class="btn btn--primary" style="width:100%;justify-content:center;"><i class="fas fa-cake-candles"></i> Order a Cake</a>
+  </div>
+</div>
+
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<aside id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Cart</h2>
+    <button id="cart-drawer-close" class="cart-drawer-close"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div id="cart-drawer-content"></div>
+</aside>
+
+<main class="track-page">
+  <div class="container">
+    <div class="order-page-header">
+      <span class="section-label">Order Status</span>
+      <h1 class="section-title">Track Your Order</h1>
+      <p>Enter your order reference number to see real-time progress</p>
+    </div>
+
+    <!-- Search Card -->
+    <div class="track-search-card">
+      <div class="track-search-icon"><i class="fas fa-magnifying-glass"></i></div>
+      <h2 class="track-search-title">Find Your Order</h2>
+      <p class="track-search-sub">Your order reference was sent via WhatsApp after placing your order.<br/>Format: <strong>AOV-2024-0001</strong></p>
+      <div class="track-search-row">
+        <input
+          type="text" id="track-input" class="form-input"
+          placeholder="AOV-2024-0001"
+          aria-label="Order reference number"
+          autocomplete="off"
+          maxlength="20"
+        />
+        <button class="btn btn--primary" id="track-btn">
+          <i class="fas fa-search"></i> Track
+        </button>
+      </div>
+      <p style="margin-top:var(--sp-4);font-size:var(--fz-xs);color:var(--clr-stone-400)">
+        <i class="fas fa-lock" style="color:var(--clr-sage)"></i> Your order details are private and secure
+      </p>
+    </div>
+
+    <!-- Results area -->
+    <div id="track-result" class="hidden"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Amuche's Oven</div>
+        <span class="footer-brand-tag">Handcrafted Cakes · Nairobi, Kenya</span>
+        <p class="footer-brand-desc">Handcrafted cakes made with love for your most meaningful celebrations.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-link" id="footer-whatsapp-social" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="./index.html" class="footer-link">Home</a></li>
+          <li><a href="./menu.html"  class="footer-link">Our Cakes</a></li>
+          <li><a href="./order.html" class="footer-link">Place an Order</a></li>
+          <li><a href="./track.html" class="footer-link">Track Your Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a id="footer-phone" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a id="footer-email" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span id="footer-hours">Loading…</span></div>
+        <div class="footer-contact-item"><i class="fas fa-location-dot"></i><span>Nairobi, Kenya</span></div>
+      </div>
+      <div>
+        <div class="footer-heading">Need Help?</div>
+        <p style="font-size:var(--fz-sm);color:rgba(250,240,226,0.55);margin-bottom:var(--sp-4)">Can't find your order? Chat with us.</p>
+        <a id="footer-wa-cta" href="#" class="btn btn--whatsapp btn--sm" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Chat with Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="footer-year"></span> Amuche's Oven. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./_env.js"></script>
+<script type="module" src="./js/nav.js"></script>
+<script type="module" src="./js/track.js"></script>
+</body>
+</html>

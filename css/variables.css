@@ -1,0 +1,67 @@
+/* ============================================================
+   Amuche's Oven — Design Tokens
+   ============================================================ */
+:root {
+  /* ── Brand Colours ── */
+  --clr-espresso:   #1A0A02;
+  --clr-mahogany:   #7B3A1E;
+  --clr-terracotta: #C45A2A;
+  --clr-caramel:    #E8935A;
+  --clr-cream:      #FAF0E2;
+  --clr-warm-white: #FFFCF7;
+  --clr-sage:       #6E8060;
+  --clr-sage-light: #A8B89A;
+  --clr-gold:       #C9943A;
+  /* ── Neutrals ── */
+  --clr-stone-100: #F5EDE0;
+  --clr-stone-200: #E8D9C4;
+  --clr-stone-300: #D4BFA0;
+  --clr-stone-400: #B89B78;
+  --clr-stone-500: #8C7355;
+  --clr-stone-600: #5C4A32;
+  --clr-stone-700: #3A2E1E;
+  --clr-stone-800: #1A0A02;
+  /* ── Semantics ── */
+  --clr-success: #4A7C4E;
+  --clr-warning: #C9943A;
+  --clr-error:   #B53A2A;
+  --clr-info:    #3A6A8A;
+  /* ── Typography ── */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Outfit', system-ui, sans-serif;
+  --fz-xs:   0.75rem;   --fz-sm:   0.875rem;
+  --fz-base: 1rem;      --fz-md:   1.125rem;
+  --fz-lg:   1.25rem;   --fz-xl:   1.5rem;
+  --fz-2xl:  1.875rem;  --fz-3xl:  2.25rem;
+  --fz-4xl:  3rem;      --fz-5xl:  3.75rem;
+  --fz-6xl:  4.5rem;
+  --fw-light:300; --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+  --lh-tight:1.1; --lh-snug:1.3; --lh-normal:1.5; --lh-relaxed:1.7;
+  --ls-tight:-0.03em; --ls-snug:-0.01em; --ls-normal:0;
+  --ls-wide:0.05em; --ls-wider:0.1em; --ls-widest:0.15em;
+  /* ── Spacing ── */
+  --sp-1:0.25rem; --sp-2:0.5rem;  --sp-3:0.75rem; --sp-4:1rem;
+  --sp-5:1.25rem; --sp-6:1.5rem;  --sp-8:2rem;    --sp-10:2.5rem;
+  --sp-12:3rem;   --sp-16:4rem;   --sp-20:5rem;   --sp-24:6rem;
+  --sp-32:8rem;
+  /* ── Radius ── */
+  --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+  --radius-xl:24px; --radius-full:9999px;
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(26,10,2,.08),0 1px 2px rgba(26,10,2,.06);
+  --shadow-md:  0 4px 12px rgba(26,10,2,.1),0 2px 6px rgba(26,10,2,.07);
+  --shadow-lg:  0 10px 30px rgba(26,10,2,.12),0 4px 12px rgba(26,10,2,.08);
+  --shadow-xl:  0 20px 60px rgba(26,10,2,.15),0 8px 20px rgba(26,10,2,.1);
+  --shadow-card:0 2px 8px rgba(26,10,2,.08),0 8px 24px rgba(26,10,2,.06);
+  /* ── Transitions ── */
+  --transition-fast:150ms ease; --transition-normal:250ms ease;
+  --transition-slow:400ms ease;
+  --transition-spring:300ms cubic-bezier(0.34,1.56,0.64,1);
+  /* ── Z-Index ── */
+  --z-base:0; --z-raised:10; --z-dropdown:100;
+  --z-sticky:200; --z-overlay:300; --z-modal:400; --z-toast:500;
+  /* ── Layout ── */
+  --container-sm:640px; --container-md:768px;
+  --container-lg:1024px; --container-xl:1280px;
+  --nav-height:72px;
+}

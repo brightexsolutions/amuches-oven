@@ -1,0 +1,49 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+.netlify/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+# Python cache
+__pycache__/
+
+# Supabase
+.supabase/
+
+# Misc
+*.bak
+*.tmp
+
+# Ignore database and secrets
+*.sqlite
+*.db
+*.pem
+*.key
+
+# Ignore images and receipts storage (if local)
+assets/
+receipts/
+
+# Ignore test coverage
+coverage/
+
+# Ignore scripts output
+scripts/*.out

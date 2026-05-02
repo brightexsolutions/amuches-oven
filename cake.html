@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Order this handcrafted cake from Amuche's Oven — fresh baked, delivered across Nairobi." />
+  <title>Cake Details — Amuche's Oven</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/nav.css" />
+  <link rel="stylesheet" href="./css/cart.css" />
+  <link rel="stylesheet" href="./css/menu.css" />
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-logo">Amuche's Oven</div></div>
+
+<!-- Announcement Bar -->
+<div class="site-header">
+<div class="announcement-bar" id="announcement-bar">
+  <i class="fas fa-gift"></i>&nbsp;
+  Free delivery on wedding cakes &amp; orders above KSh 5,000 within Nairobi.
+  <a href="./order.html">Order now →</a>
+  <button class="announcement-bar-close" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
+</div>
+
+<!-- Nav -->
+<nav class="site-nav solid" role="navigation" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="./index.html" class="nav-logo">
+      <span class="nav-logo-name">Amuche's Oven</span>
+      <span class="nav-logo-tag">Handcrafted Cakes · Nairobi</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="./index.html" class="nav-link">Home</a></li>
+      <li><a href="./menu.html"  class="nav-link active">Our Cakes</a></li>
+      <li><a href="./order.html" class="nav-link">Order</a></li>
+      <li><a href="./track.html" class="nav-link">Track Order</a></li>
+      <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="cart-btn" aria-label="Open cart">
+        <i class="fas fa-bag-shopping"></i>
+        <span class="cart-count hidden">0</span>
+      </button>
+      <a href="./order.html" class="btn btn--primary btn--sm nav-cta">
+        <i class="fas fa-cake-candles"></i> Order a Cake
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+</div><!-- /.site-header -->
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <ul class="mobile-nav-links">
+    <li><a href="./index.html" class="mobile-nav-link"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="./menu.html"  class="mobile-nav-link active"><i class="fas fa-cake-candles"></i> Our Cakes</a></li>
+    <li><a href="./order.html" class="mobile-nav-link"><i class="fas fa-pen-to-square"></i> Place an Order</a></li>
+    <li><a href="./track.html" class="mobile-nav-link"><i class="fas fa-magnifying-glass"></i> Track Your Order</a></li>
+    <li><a href="./index.html#contact" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-actions">
+    <a href="./order.html" class="btn btn--primary" style="width:100%;justify-content:center;">
+      <i class="fas fa-cake-candles"></i> Order a Cake
+    </a>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer-overlay" class="cart-drawer-overlay"></div>
+<aside id="cart-drawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Your Cart</h2>
+    <button id="cart-drawer-close" class="cart-drawer-close"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div id="cart-drawer-content"></div>
+</aside>
+
+<!-- ── Breadcrumb ── -->
+<div class="cake-breadcrumb">
+  <div class="container">
+    <nav aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li><a href="./index.html">Home</a></li>
+        <li aria-hidden="true"><i class="fas fa-chevron-right"></i></li>
+        <li><a href="./menu.html">Our Cakes</a></li>
+        <li aria-hidden="true"><i class="fas fa-chevron-right"></i></li>
+        <li id="breadcrumb-name" aria-current="page">Loading…</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Cake Detail ── -->
+<main class="cake-detail">
+  <div class="container">
+
+    <!-- Loading state -->
+    <div id="cake-loading" class="cake-detail-grid">
+      <div>
+        <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:var(--radius-xl);margin-bottom:var(--sp-4)"></div>
+        <div style="display:flex;gap:var(--sp-3)">
+          <div class="skeleton" style="width:72px;height:72px;border-radius:var(--radius-md)"></div>
+          <div class="skeleton" style="width:72px;height:72px;border-radius:var(--radius-md)"></div>
+          <div class="skeleton" style="width:72px;height:72px;border-radius:var(--radius-md)"></div>
+        </div>
+      </div>
+      <div>
+        <div class="skeleton skeleton-line" style="width:40%;height:12px;margin-bottom:var(--sp-3)"></div>
+        <div class="skeleton skeleton-line" style="width:80%;height:36px;margin-bottom:var(--sp-4)"></div>
+        <div class="skeleton skeleton-line" style="width:90%;height:14px;margin-bottom:var(--sp-2)"></div>
+        <div class="skeleton skeleton-line" style="width:70%;height:14px;margin-bottom:var(--sp-8)"></div>
+        <div class="skeleton" style="width:100%;height:120px;border-radius:var(--radius-lg)"></div>
+      </div>
+    </div>
+
+    <!-- Actual content (populated by JS) -->
+    <div id="cake-content" class="hidden"></div>
+
+    <!-- Error state -->
+    <div id="cake-error" class="no-results hidden">
+      <i class="fas fa-triangle-exclamation"></i>
+      <h3>Cake not found</h3>
+      <p>This cake may have been removed or the link is incorrect.</p>
+      <a href="./menu.html" class="btn btn--primary" style="margin-top:var(--sp-4)">
+        <i class="fas fa-arrow-left"></i> Back to Our Cakes
+      </a>
+    </div>
+  </div>
+</main>
+
+<!-- ── Related Cakes ── -->
+<section class="related-section" id="related-section" aria-labelledby="related-heading">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:var(--sp-8)">
+      <div>
+        <span class="section-label">You May Also Like</span>
+        <h2 class="section-title" id="related-heading">More from Our Collection</h2>
+      </div>
+      <a href="./menu.html" class="btn btn--outline">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="cakes-grid" id="related-grid"></div>
+  </div>
+</section>
+
+<!-- Custom Order Banner -->
+<section class="custom-order-banner">
+  <div class="custom-order-banner-inner container">
+    <span class="section-label" style="color:var(--clr-caramel)">Something Different?</span>
+    <h2 class="section-title" style="color:var(--clr-cream);margin:var(--sp-3) 0 var(--sp-4)">Need a Custom Design?</h2>
+    <p class="section-subtitle" style="color:rgba(250,240,226,.65);margin:0 auto var(--sp-8)">
+      We can create any cake you can imagine — just describe your vision and we'll bring it to life.
+    </p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:var(--sp-4);flex-wrap:wrap">
+      <a href="./order.html?type=custom" class="btn btn--primary btn--lg">
+        <i class="fas fa-wand-magic-sparkles"></i> Request Custom Cake
+      </a>
+      <a id="cake-whatsapp-cta" href="#" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Amuche's Oven</div>
+        <span class="footer-brand-tag">Handcrafted Cakes · Nairobi, Kenya</span>
+        <p class="footer-brand-desc">Handcrafted cakes made with love for your most meaningful celebrations. Every cake baked fresh, to order.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="footer-social-link" aria-label="WhatsApp" id="footer-whatsapp-social" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Our Cakes</div>
+        <ul class="footer-links">
+          <li><a href="./menu.html?cat=birthday"    class="footer-link">Birthday Cakes</a></li>
+          <li><a href="./menu.html?cat=wedding"     class="footer-link">Wedding Cakes</a></li>
+          <li><a href="./menu.html?cat=anniversary" class="footer-link">Anniversary Cakes</a></li>
+          <li><a href="./menu.html?cat=corporate"   class="footer-link">Corporate Cakes</a></li>
+          <li><a href="./order.html?type=custom"    class="footer-link">Custom Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="./index.html" class="footer-link">Home</a></li>
+          <li><a href="./menu.html"  class="footer-link">All Cakes</a></li>
+          <li><a href="./order.html" class="footer-link">Place an Order</a></li>
+          <li><a href="./track.html" class="footer-link">Track Your Order</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><a id="footer-phone" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><a id="footer-email" href="#">Loading…</a></div>
+        <div class="footer-contact-item"><i class="fas fa-clock"></i><span id="footer-hours">Loading…</span></div>
+        <div class="footer-contact-item"><i class="fas fa-location-dot"></i><span>Nairobi, Kenya</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="footer-year"></span> Amuche's Oven. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top-btn" id="scroll-top" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./_env.js"></script>
+<script type="module" src="./js/nav.js"></script>
+<script type="module" src="./js/cake-detail.js"></script>
+</body>
+</html>
